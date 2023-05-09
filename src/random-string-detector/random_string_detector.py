@@ -24,6 +24,3 @@ def is_random_string(word, threshold):
         return False
     else:
         return True
-
-if __name__ == '__main__':
-    print(is_random_string("Jdjfjfk", 0.1))
