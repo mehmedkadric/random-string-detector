@@ -682,12 +682,12 @@ def is_random_string(word, threshold):
     if len(word) < 4 or not word.isalpha():
         return False
 
-    # Repeating characters
-    if len(set(word)) == 1:
-        return True
-
     # Turn word into lowercase
     word = word.lower()
+
+    # Repeating characters
+    if len(set(word)) == 1:
+            return True
 
     # Get list of bigrams from the word
     bigrams = [word[i:i + 2] for i in range(len(word) - 1)]
