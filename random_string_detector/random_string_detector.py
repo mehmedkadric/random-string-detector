@@ -701,3 +701,6 @@ def is_random_string(word, threshold):
         return False
     else:
         return True
+
+def is_random_string(word):
+    return is_random_string(word, 0.1)
