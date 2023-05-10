@@ -4,7 +4,16 @@
 pip install random-string-detector
 ```
 
-## Example
+## Examples
+### Example 1 - With Default Threshold (_0.1_)
+```
+from random_string_detector.random_string_detector import is_random_string
+
+print(is_random_string("Home")) # False
+print(is_random_string("Jdjfjfk")) # True
+```
+
+### Example 2 - With Threshold Parameter
 ```
 from random_string_detector.random_string_detector import is_random_string
 
