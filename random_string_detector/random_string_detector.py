@@ -677,7 +677,7 @@ en_bigrams_dict = {
         "wz": 0.0
     }
 
-def is_random_string(word, threshold):
+def is_random_string(word, threshold=0.1):
     # Allow only words longer than 3 characters which contains only English alphabetic characters
     if len(word) < 4 or not word.isalpha():
         return False
@@ -701,6 +701,3 @@ def is_random_string(word, threshold):
         return False
     else:
         return True
-
-def is_random_string(word):
-    return is_random_string(word, 0.1)
