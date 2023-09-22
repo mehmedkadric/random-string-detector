@@ -29,8 +29,8 @@ from random_string_detector import RandomStringDetector
 
 detector = RandomStringDetector()
 detector("Hello World") # False
-detector("kkkkkk") # True
-detector("asuhasuahsua") # True
+detector("aowkaoskaos") # True
+detector("aoekaoekaoe") # True
 ```
 
 ## Explanation
