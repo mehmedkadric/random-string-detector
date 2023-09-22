@@ -54,6 +54,7 @@ To add support for a new language, you need to follow these steps:
 - Find a large text corpus in the language you want to add support for.
 - Compute the bigram frequencies for the corpus (see [**/notebooks/portuguese.ipynb**](/notebooks/portuguese.ipynb) for an example).
 - Add the bigram frequencies to [**/random_string_detector/bigrams/<language>.py**](/random_string_detector/bigrams).
+- Import the bigram frequencies in [**/random_string_detector/bigrams/__init__.py**](/random_string_detector/bigrams/__init__.py).
 
 > **Note:** The bigram frequencies should be a dictionary with the bigram as the key and the normalized frequency as the value. The bigram should be a string with the two letters concatenated. The normalized frequency should be a float between 0 and 100.
 

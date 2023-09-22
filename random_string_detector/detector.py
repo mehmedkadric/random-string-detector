@@ -1,7 +1,7 @@
 """Random String Detector."""
 from types import MappingProxyType
 from typing import Dict, Union
-from src.bigrams import ENGLISH
+from random_string_detector.bigrams import ENGLISH
 
 class RandomStringDetector(object):
     """Class to detect random typing in a given text."""

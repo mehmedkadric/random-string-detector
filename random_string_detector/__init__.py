@@ -1,2 +1,2 @@
 """__init__.py for src package."""
-from src.detector import RandomStringDetector
+from random_string_detector.detector import RandomStringDetector
