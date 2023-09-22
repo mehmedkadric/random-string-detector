@@ -1,4 +1,10 @@
-en_bigrams_dict = {
+"""A list of bigrams in English, sorted by frequency.
+https://github.com/mehmedkadric/random-string-detector/blob/main/random_string_detector/random_string_detector.py
+"""
+from types import MappingProxyType
+
+ENGLISH = MappingProxyType(
+    {
         "th": 100.0,
         "he": 86.46134397905362,
         "in": 68.40849707687968,
@@ -676,28 +682,4 @@ en_bigrams_dict = {
         "wq": 0.0,
         "wz": 0.0
     }
-
-def is_random_string(word, threshold=0.1):
-    # Allow only words longer than 3 characters which contains only English alphabetic characters
-    if len(word) < 4 or not word.isalpha():
-        return False
-
-    # Turn word into lowercase
-    word = word.lower()
-
-    # Repeating characters
-    if len(set(word)) == 1:
-            return True
-
-    # Get list of bigrams from the word
-    bigrams = [word[i:i + 2] for i in range(len(word) - 1)]
-
-    # Get number of common and uncommon bigrams
-    num_common_bigrams = sum(1 for bigram in bigrams if en_bigrams_dict.get(bigram, 0) > threshold)
-    num_uncommon_bigrams = len(bigrams) - num_common_bigrams
-
-    # Higher number wins
-    if num_common_bigrams > num_uncommon_bigrams:
-        return False
-    else:
-        return True
+)
