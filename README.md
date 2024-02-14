@@ -31,6 +31,7 @@ detector = RandomStringDetector()
 detector("Hello World") # False
 detector("aowkaoskaos") # True
 detector("aoekaoekaoe") # True
+detector("aoekaoekaoe123", allow_numbers=True) # True
 ```
 
 ## Explanation
@@ -42,6 +43,8 @@ As per [**Peter Norvig analysis**](http://norvig.com/mayzner.html), the most fre
 This package contains a class named `RandomStringDetector()` and language-specific bigram frequency dictionaries that can be combined to detect random strings in English and other languages. The threshold value (between 0 and 100) can be used to control the sensitivity of the detection. Higher values represent more frequent bigrams (like "th") and lower values represent less frequent bigrams (like "zx").
 
 Only words with length greater than 4 are considered.
+
+The boolean `allow_numbers` argument (default `False`) will ignore numbers if they are present. This is useful if you are validating whether or not a username is valid, as often times these will include valid words and numbers - such as "chicagofan23".
 
 ## Contributing
 
