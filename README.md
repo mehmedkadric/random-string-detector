@@ -31,7 +31,7 @@ detector = RandomStringDetector()
 detector("Hello World") # False
 detector("aowkaoskaos") # True
 detector("aoekaoekaoe") # True
-detector("aoekaoekaoe123", allow_numbers=True) # True
+detector("Hello World 123", allow_numbers=True) # False
 ```
 
 ## Explanation
