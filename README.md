@@ -1,4 +1,4 @@
-# random_string_detector
+# random-string-detector
 
 This package helps you identify random strings within text data by analyzing the frequency of bigrams (two-letter combinations). It leverages the fact that certain bigrams are more common in natural language than others. By comparing the bigram frequencies in your text data to those in a reference language corpus, you can spot strings of characters that deviate from typical language patterns.
 
