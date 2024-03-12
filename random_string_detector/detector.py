@@ -3,14 +3,18 @@ from types import MappingProxyType
 from typing import Dict, Union
 from random_string_detector.bigrams import ENGLISH
 
+
 class RandomStringDetector(object):
     """Class to detect random typing in a given text."""
+
     def __init__(
             self,
-            bigrams_probs: Union[MappingProxyType[str, float], Dict[str, float]] = ENGLISH,
+            bigrams_probs: Union[MappingProxyType[str,
+                                                  float], Dict[str, float]] = ENGLISH,
             common_bigrams_threshold: float = 0.1,
             uncommon_bigrams_threshold: float = 0.5,
-            duplicated_bigrams_threshold: float = 0.33):
+            duplicated_bigrams_threshold: float = 0.33,
+            allow_numbers: bool = False):
         """Initialize a RandomStringDetector object.
 
         Attributes:
@@ -18,11 +22,13 @@ class RandomStringDetector(object):
         - common_bigrams_threshold (float): threshold to determine if a bigram is common or not.
         - uncommon_bigrams_threshold (float): threshold to determine if a word is random typing or not.
         - duplicated_bigrams_threshold (float): threshold to determine if a word is random typing or not.
+        - allow_numbers (bool): whether to allow numbers in the string
         """
         self.bigrams = bigrams_probs
         self.common_bigrams_threshold = common_bigrams_threshold
         self.uncommon_bigrams_threshold = uncommon_bigrams_threshold
         self.duplicated_bigrams_threshold = duplicated_bigrams_threshold
+        self.allow_numbers = allow_numbers
 
     def is_random_word(self, word: str):
         """Check if a word is random typing or not.
@@ -33,9 +39,15 @@ class RandomStringDetector(object):
         Returns:
         - True if the word is random typing, False otherwise
         """
-        # Allow only words longer than 3 characters and with only letters
-        if len(word) < 4 or not word.isalpha():
-            return False
+        # Allow only words longer than 3 characters
+        if self.allow_numbers:
+            # Allow letters and numbers
+            if len(word) < 4:
+                return False
+        else:
+            # Allow only letters
+            if len(word) < 4 or not word.isalpha():
+                return False
         # Return True if the word is a single character repeated multiple times
         if len(set(word)) == 1:
             return True
@@ -54,10 +66,10 @@ class RandomStringDetector(object):
         num_duplicated_bigrams = len(bigrams) - len(set(bigrams))
 
         # Higher number wins
-        ## if uncommon_bigrams is more than n of the bigrams, return True
+        # if uncommon_bigrams is more than n of the bigrams, return True
         if num_uncommon_bigrams / len(bigrams) > self.uncommon_bigrams_threshold:
             return True
-        ## if more than n of the bigrams are duplicated, return True
+        # if more than n of the bigrams are duplicated, return True
         elif num_duplicated_bigrams / len(bigrams) > self.duplicated_bigrams_threshold:
             return True
         else:
