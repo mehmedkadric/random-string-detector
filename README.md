@@ -23,15 +23,25 @@ pip install random-string-detector
 ```
 
 ## Usage
-
+### Example 1
 ```python
 from random_string_detector import RandomStringDetector
 
 detector = RandomStringDetector()
-detector("Hello World") # False
-detector("aowkaoskaos") # True
-detector("aoekaoekaoe") # True
-detector("Hello World 123", allow_numbers=True) # False
+print(detector("Hello World"))  # False
+print(detector("aowkaoskaos"))  # True
+```
+
+### Example 2
+```python
+from random_string_detector import RandomStringDetector
+
+detector = RandomStringDetector(allow_numbers=True)
+print(detector("Hello World"))  # False
+print(detector("aowkaoskaos"))  # True
+print(detector("aoekaoekaoe"))  # True
+print(detector("aoekaoekaoe1d2e"))  # True
+print(detector("Hello World 123"))  # False
 ```
 
 ## Explanation
