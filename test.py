@@ -121,8 +121,8 @@ class TestRandomStringDetector(unittest.TestCase):
     def test_with_numbers_allowed(self):
         """Test cases with allow_numbers=True"""
         
-        # Baseline number cases (from baseline_test.py)
-        self.assertTrue(self.detector_with_numbers("chicagofan23"), "Username with numbers - still random")
+        # Baseline number cases (updated to match README documentation)
+        self.assertFalse(self.detector_with_numbers("chicagofan23"), "Username with numbers - valid username")
         self.assertTrue(self.detector_with_numbers("aowkaoskaos"), "Random typing")
         self.assertTrue(self.detector_with_numbers("qwerty"), "Keyboard pattern")
         
@@ -132,6 +132,32 @@ class TestRandomStringDetector(unittest.TestCase):
         
         # Test with underscores (should be rejected as non-alphabetic)
         self.assertTrue(self.detector_with_numbers("john_doe"), "Username with underscores")
+
+        # Valid usernames with numbers (should NOT be detected as random)
+        # Long usernames with meaningful content + numbers
+        self.assertFalse(self.detector_with_numbers("basketballfan99"), "Sports fan username")
+        self.assertFalse(self.detector_with_numbers("musiclover2024"), "Music lover with year")
+        self.assertFalse(self.detector_with_numbers("johnsmith1985"), "Name with birth year")
+        self.assertFalse(self.detector_with_numbers("techgeek2023"), "Tech enthusiast username")
+        self.assertFalse(self.detector_with_numbers("guitarplayer42"), "Hobby-based username")
+        self.assertFalse(self.detector_with_numbers("bookworm1990"), "Interest-based username")
+        self.assertFalse(self.detector_with_numbers("traveler2022"), "Traveler username")
+        self.assertFalse(self.detector_with_numbers("photographer88"), "Professional username")
+        self.assertFalse(self.detector_with_numbers("gamingmaster2024"), "Gaming username")
+        self.assertFalse(self.detector_with_numbers("codingwizard123"), "Programming username")
+        
+        # Generic/short usernames with numbers (SHOULD be detected as random)
+        # Short, generic patterns that are likely auto-generated or low-effort
+        self.assertTrue(self.detector_with_numbers("user123"), "Generic username")
+        self.assertTrue(self.detector_with_numbers("test456"), "Test account")
+        self.assertTrue(self.detector_with_numbers("admin999"), "Admin account")
+        self.assertTrue(self.detector_with_numbers("guest789"), "Guest account")
+        self.assertTrue(self.detector_with_numbers("temp123"), "Temporary account")
+        self.assertTrue(self.detector_with_numbers("demo567"), "Demo account")
+        self.assertTrue(self.detector_with_numbers("new2024"), "Generic new user")
+        self.assertTrue(self.detector_with_numbers("user999"), "Generic user pattern")
+        self.assertTrue(self.detector_with_numbers("acc123"), "Account abbreviation")
+        self.assertTrue(self.detector_with_numbers("id4567"), "ID pattern")
 
         # UUIDs, hashes, license keys, and mixed alphanumeric strings (should be detected as random)
         self.assertTrue(self.detector_with_numbers("123e4567-e89b-12d3-a456-426614174000"), "UUID")
@@ -145,6 +171,14 @@ class TestRandomStringDetector(unittest.TestCase):
         self.assertTrue(self.detector_with_numbers("user123test"), "Mixed alphanumeric")
         self.assertTrue(self.detector_with_numbers("a1b2c3"), "Mixed alphanumeric")
         self.assertTrue(self.detector_with_numbers("1a2b3c"), "Mixed alphanumeric")
+        
+        # Edge cases - borderline examples
+        # These test the 8-character threshold and other edge conditions
+        self.assertTrue(self.detector_with_numbers("abc1234"), "7 chars - high digit ratio")
+        self.assertFalse(self.detector_with_numbers("username1"), "9 chars - meaningful word")
+        self.assertTrue(self.detector_with_numbers("usr1234"), "7 chars - abbreviated generic")
+        self.assertFalse(self.detector_with_numbers("developer2024"), "Long meaningful username")
+        self.assertTrue(self.detector_with_numbers("dev2024"), "Short abbreviated form")
 
     def test_edge_cases(self):
         """Test edge cases and boundary conditions"""

@@ -107,9 +107,32 @@ def run_baseline_test():
     print("\nWITH NUMBERS ALLOWED:")
     print("-" * 50)
     number_cases = [
-        ("chicagofan23", True),
-        ("aowkaoskaos", True),
-        ("qwerty", True),
+        # Valid usernames with numbers (should be False - not random)
+        ("chicagofan23", False),      # Updated to match README documentation
+        ("basketballfan99", False),   # Sports fan username
+        ("musiclover2024", False),    # Music lover with year
+        ("johnsmith1985", False),     # Name with birth year
+        ("techgeek2023", False),      # Tech enthusiast username
+        ("guitarplayer42", False),    # Hobby-based username
+        ("codingwizard123", False),   # Programming username
+        
+        # Generic/short usernames (should be True - random)
+        ("user123", True),            # Generic username
+        ("test456", True),            # Test account
+        ("admin999", True),           # Admin account
+        ("guest789", True),           # Guest account
+        ("temp123", True),            # Temporary account
+        
+        # Edge cases testing 8-character threshold
+        ("username1", False),         # 9 chars - meaningful word
+        ("abc1234", True),            # 7 chars - high digit ratio
+        ("dev2024", True),            # Short abbreviated form
+        
+        # Random patterns (should be True)
+        ("aowkaoskaos", True),        # Random typing
+        ("qwerty", True),             # Keyboard pattern
+        ("abc123def", True),          # Mixed alphanumeric
+        ("a1b2c3d4e5f6", True),       # Hex hash pattern
     ]
     
     number_correct = 0
